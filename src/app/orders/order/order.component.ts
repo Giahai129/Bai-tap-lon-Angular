@@ -25,7 +25,8 @@ export class OrderComponent implements OnInit {
       PMethod:'',
       GTotal:0
       
-    }
+    };
+    this.service.orderItems=[];
   }
 
 }
