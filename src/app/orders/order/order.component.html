@@ -15,8 +15,9 @@
           <label>Customer</label>
           <select name="CustomerID" #CustomerID="ngModel" [(ngModel)]="service.formData.CustomerID" class="form-control">
             <option value="0">-Select-</option>
-            <option value="Cash">Tiền mặt</option>
-            <option value="Card">Thẻ</option>
+            <option value="Cash">Cash</option>
+          <option value="Card">Card</option>
+            
           </select>
         </div>
       </div>
@@ -40,6 +41,30 @@
           </div>
         </div>
       </div>
+       <!-- order items table-->
+  <table class="table table-borderless">
+    <thead class="thead-light">
+      <th>Food</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Total</th>
+      <th> </th>
+      <tbody>
+        <tr *ngIf="service.orderItems.length==0">
+          <td class="font-italic text-center">
+          No food item selected for this order.
+        </td>
+        </tr>
+<tr *ngFor="let item of service.orderItems"> 
+  <td>{{item.ItemName}}</td>
+        <td>{{item.Price}}</td>
+        <td>{{item.Quantity}}</td>
+        <td>{{item.Total}}</td>
+        <td></td>
+</tr>
+      </tbody>
+    </thead>
+  </table>
       <div class="form-group">
         <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
     </div>
