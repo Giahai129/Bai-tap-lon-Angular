@@ -9,6 +9,7 @@ import { OrderComponent } from './orders/order/order.component';
 import { OrderItemsComponent } from './orders/order-items/order-items.component';
 import { OrderService } from './shared/order.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    HttpClientModule
   ],
   entryComponents:[OrderItemsComponent],
   providers: [OrderService],
