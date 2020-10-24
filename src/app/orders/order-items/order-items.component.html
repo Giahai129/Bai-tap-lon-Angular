@@ -3,7 +3,7 @@
 <form #form="ngForm" autocomplete="off" >
   <div class="form-group">
     <label>Food Item</label>
-    <select name="ItemID" #ItemID="ngModel" [(ngModel)]="formData.ItemID" class="form-control" >
+    <select name="ItemID" #ItemID="ngModel" [(ngModel)]="formData.ItemID" class="form-control"(change)="updatePrice($event.target)" >
       <option value="0">-Select-</option>
       <option *ngFor="let item of itemList" value="{{item.ItemID}}">{{item.Name}}</option>
     </select>
