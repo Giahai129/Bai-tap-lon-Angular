@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog,MatDialogConfig } from '@angular/material/dialog';
+import { Subscriber } from 'rxjs';
 import { OrderService } from 'src/app/shared/order.service';
 import { OrderItemsComponent } from '../order-items/order-items.component';
 
@@ -39,11 +40,20 @@ export class OrderComponent implements OnInit {
     dialogConfig.data = {orderItemIndex, OrderID};
     
 
-    this.dialog.open(OrderItemsComponent,dialogConfig);
+    this.dialog.open(OrderItemsComponent,dialogConfig).afterClosed().subscribe(res=>{
+      this.updateGrandTotal();
+    });
     
   }
   onDeleteOrderItem(orderItemID:number,i:number){
     this.service.orderItems.splice(i,1);
+    this.updateGrandTotal();
+  }
+  updateGrandTotal(){
+    this.service.formData.GTotal=this.service.orderItems.reduce((prev,curr)=>{
+      return prev+curr.Total;
+    },0);
+    this.service.formData.GTotal = parseFloat(this.service.formData.GTotal.toFixed(2));
   }
 
 }
