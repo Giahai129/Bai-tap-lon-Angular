@@ -4,6 +4,8 @@ import { MatDialog,MatDialogConfig } from '@angular/material/dialog';
 import { Subscriber } from 'rxjs';
 import { OrderService } from 'src/app/shared/order.service';
 import { OrderItemsComponent } from '../order-items/order-items.component';
+import { Customer } from 'src/app/shared/customer.model';
+import { CustomerService } from './../../shared/customer.service';
 
 @Component({
   selector: 'app-order',
@@ -12,12 +14,16 @@ import { OrderItemsComponent } from '../order-items/order-items.component';
   ]
 })
 export class OrderComponent implements OnInit {
+  customerList : Customer[];
+  isValid:boolean = true;
 
   constructor(public service: OrderService,
-    private dialog:MatDialog) { }
+    private dialog:MatDialog,
+    private customerService: CustomerService) { }
 
   ngOnInit(): void {
     this.resetForm();
+    this.customerService.getCustomerList().then(res=>this.customerList=res as Customer[]);
   }
   resetForm(form?:NgForm){
     if(form=null)
@@ -55,5 +61,20 @@ export class OrderComponent implements OnInit {
     },0);
     this.service.formData.GTotal = parseFloat(this.service.formData.GTotal.toFixed(2));
   }
+  validateForm(){
+    this.isValid=true;
+    if(this.service.formData.CustomerID==0)
+    this.isValid = false;
+    else if(this.service.orderItems.length==0)
+    this.isValid=false;
+    return this.isValid;
+  }
+  onSubmit(form:NgForm){
+    if(this.validateForm())
+    {
+      
+    }
+  }
+
 
 }
